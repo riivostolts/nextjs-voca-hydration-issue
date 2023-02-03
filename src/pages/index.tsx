@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { TeliaTextInput } from '@teliads/components/react'
+import React from 'react'
 
 export default function Home() {
   return (
@@ -20,4 +21,21 @@ export default function Home() {
       />
     </>
   )
+}
+
+// By wrappiong TeliaTextInput with this "hackish" component, the hydration error won't trigger as TeliaTextInput gets rendered only on client side
+const ClientOnly: React.FC<{
+  children: React.ReactNode
+}> = ({ children, ...delegated }) => {
+  const [hasMounted, setHasMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  if (!hasMounted) {
+    return null
+  }
+
+  return <div {...delegated}>{children}</div>
 }
