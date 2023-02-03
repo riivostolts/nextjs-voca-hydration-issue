@@ -16,8 +16,7 @@ export default function Home() {
         type='text'
         inputmode='text'
         label={'Search for device'}
-        onInput={() => console.log('adsadas')}
-        className='w-[23.75rem]'
+        onInput={() => console.log('click')}
       />
     </>
   )
